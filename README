@@ -1,0 +1,18 @@
+= UserAgentInfo
+
+== simplify user-agent detection in Rails
+
+== Usage
+
+It extends ActionController::Request and parses the requests HTTP_USER_AGENT header so it can be queried.
+The supported browsers are IE, Firefox, Chrome, Opera this translates into the methods isIE?, isFirefox?, isChrome, isOpera?
+You can also supply a version like isIE?('6.0') and you can query if it is worse or/and better then a version isIE_or_worse?('6.0')
+
+=== Example
+class UpgradeBrowserController < ApplicationController
+  def index
+    @upgrade = request.user_agent_info.isIE_or_worse?('6.0')   
+  end
+end
+
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>method_missing (UserAgentInfo::UserAgent)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/user_agent_info.rb, line 40</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method_id</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">actions</span> = [<span class="ruby-value str">'better'</span>, <span class="ruby-value str">'worse'</span>]
+      <span class="ruby-identifier">operators</span> = [<span class="ruby-value str">'or'</span>, <span class="ruby-value str">'and'</span>]
+      
+      <span class="ruby-identifier">method</span> = <span class="ruby-identifier">method_id</span>.<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">method_name</span> = <span class="ruby-node">&quot;#{method.split('_')[0]}?&quot;</span>
+      
+      <span class="ruby-identifier">operator</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'_'</span>)[<span class="ruby-value">1</span>]      
+      <span class="ruby-identifier">action</span>   = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'_'</span>)[<span class="ruby-value">2</span>].<span class="ruby-identifier">chop</span>
+ 
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">operators</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">operator</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">action</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action</span>)      
+ 
+      <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span> <span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_sym</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;Missing 'version' argument.&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+                
+        <span class="ruby-identifier">version</span> = <span class="ruby-identifier">arguments</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_f</span>
+        <span class="ruby-keyword kw">case</span> 
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">&quot;better&quot;</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">operator</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">'or'</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@browser_info</span>[<span class="ruby-value str">'version'</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">version</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">&quot;better&quot;</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">operator</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">'and'</span>)          
+          <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@browser_info</span>[<span class="ruby-value str">'version'</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">version</span>        
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">&quot;worse&quot;</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">operator</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">'or'</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@browser_info</span>[<span class="ruby-value str">'version'</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">version</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">&quot;worse&quot;</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">operator</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-value str">'and'</span>)          
+          <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@browser_info</span>[<span class="ruby-value str">'version'</span>] <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">version</span>        
+        <span class="ruby-keyword kw">end</span>                  
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
