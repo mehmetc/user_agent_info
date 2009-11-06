@@ -2,11 +2,17 @@
 
 == simplify user-agent detection in Rails
 
+== Install
+
+Hosted on Gemcutter
+
+	gem install user_agent_info
+
 == Usage
 
 It extends ActionController::Request and parses the requests HTTP_USER_AGENT header so it can be queried.
-The supported browsers are IE, Firefox, Chrome, Opera this translates into the methods isIE?, isFirefox?, isChrome, isOpera?
-You can also supply a version like isIE?('6.0') and you can query if it is worse or/and better then a version isIE_or_worse?('6.0')
+The supported browsers are IE, Firefox, Chrome, Opera
+
 
 === Example
 	class UpgradeBrowserController < ApplicationController
@@ -14,5 +20,26 @@ You can also supply a version like isIE?('6.0') and you can query if it is worse
     			@upgrade = request.user_agent_info.isIE_or_worse?('6.0')   
   		end
 	end
+=== More Examples
+Depending on your browser you could get output like this
+	request.user_agent_info['header']         ==> Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1.4) Gecko/20091016 Firefox/3.5.4 
+	request.user_agent_info['platform']       ==> Macintosh 
+	request.user_agent_info['name']           ==> Firefox 
+	request.user_agent_info['name_display']   ==> Mozilla Firefox 
+	request.user_agent_info['cpuos']          ==> Intel Mac OS X 10.5 
+	request.user_agent_info['language']       ==> en-US 
+	request.user_agent_info['version']        ==> 3.5 
+	request.user_agent_info['engine']         ==> Gecko/20091016 
 
+Ask for specific browsers
+	request.user_agent_info.isIE?                     ==> true if browser is Internet Explorer 
+	request.user_agent_info.isFirefox?                ==> true if browser is Mozilla Firefox
+	request.user_agent_info.isChrome?                 ==> true if browser is Google Chrome
+	request.user_agent_info.isOpera?                  ==> true if browser is Opera
 
+You can also ask if it is better or worse then a certain browser version. The example below uses IE but you can replace it by Firefox, Chrome or Opera
+	request.user_agent_info.isIE?('6.0')              ==> true if browser is Internet Explorer version 6.0                    '==' 
+	request.user_agent_info.isIE_or_worse?('6.0')     ==> true if browser is Internet Explorer version worse or equal to 6.0  '<=' 
+	request.user_agent_info.isIE_and_worse?('6.0')    ==> true if browser is Internet Explorer version worse then 6.0         '<' 
+	request.user_agent_info.isIE_or_better?('6.0')    ==> true if browser is Internet Explorer version better or equal to 6.0 '>=' 
+	request.user_agent_info.isIE_and_better?('6.0')   ==> true if browser is Internet Explorer version better then 6.0        '>'
