@@ -1,4 +1,5 @@
 = UserAgentInfo
+Author:: Mehmet Celik (mehmet at celik.be)
 
 == simplify user-agent detection in Rails
 
@@ -31,13 +32,13 @@ Depending on your browser you could get output like this
 	request.user_agent_info['version']        ==> 3.5 
 	request.user_agent_info['engine']         ==> Gecko/20091016 
 
-Ask for specific browsers
+Query for specific browsers
 	request.user_agent_info.isIE?                     ==> true if browser is Internet Explorer 
 	request.user_agent_info.isFirefox?                ==> true if browser is Mozilla Firefox
 	request.user_agent_info.isChrome?                 ==> true if browser is Google Chrome
 	request.user_agent_info.isOpera?                  ==> true if browser is Opera
 
-You can also ask if it is better or worse then a certain browser version. The example below uses IE but you can replace it by Firefox, Chrome or Opera
+You can also query if it is better or worse then a certain browser version. The example below uses IE but you can replace it by Firefox, Chrome or Opera
 	request.user_agent_info.isIE?('6.0')              ==> true if browser is Internet Explorer version 6.0                    '==' 
 	request.user_agent_info.isIE_or_worse?('6.0')     ==> true if browser is Internet Explorer version worse or equal to 6.0  '<=' 
 	request.user_agent_info.isIE_and_worse?('6.0')    ==> true if browser is Internet Explorer version worse then 6.0         '<' 
