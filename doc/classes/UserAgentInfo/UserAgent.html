@@ -86,13 +86,11 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000003">[]</a>&nbsp;&nbsp;
-      <a href="#M000006">isChrome?</a>&nbsp;&nbsp;
-      <a href="#M000005">isFirefox?</a>&nbsp;&nbsp;
-      <a href="#M000004">isIE?</a>&nbsp;&nbsp;
-      <a href="#M000007">isOpera?</a>&nbsp;&nbsp;
-      <a href="#M000008">method_missing</a>&nbsp;&nbsp;
-      <a href="#M000002">new</a>&nbsp;&nbsp;
+      <a href="#M000001">[]</a>&nbsp;&nbsp;
+      <a href="#M000004">isChrome?</a>&nbsp;&nbsp;
+      <a href="#M000003">isFirefox?</a>&nbsp;&nbsp;
+      <a href="#M000002">isIE?</a>&nbsp;&nbsp;
+      <a href="#M000005">isOpera?</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -125,63 +123,32 @@
 
     <!-- if method_list -->
     <div id="methods">
-      <h3 class="section-bar">Public Class methods</h3>
-
-      <div id="method-M000002" class="method-detail">
-        <a name="M000002"></a>
-
-        <div class="method-heading">
-          <a href="UserAgent.src/M000002.html" target="Code" class="method-signature"
-            onclick="popupCode('UserAgent.src/M000002.html');return false;">
-          <span class="method-name">new</span><span class="method-args">(r)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-        </div>
-      </div>
-
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000003" class="method-detail">
-        <a name="M000003"></a>
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
 
         <div class="method-heading">
-          <a href="UserAgent.src/M000003.html" target="Code" class="method-signature"
-            onclick="popupCode('UserAgent.src/M000003.html');return false;">
+          <a href="UserAgent.src/M000001.html" target="Code" class="method-signature"
+            onclick="popupCode('UserAgent.src/M000001.html');return false;">
           <span class="method-name">[]</span><span class="method-args">(lookup)</span>
           </a>
         </div>
       
         <div class="method-description">
-        </div>
-      </div>
-
-      <div id="method-M000006" class="method-detail">
-        <a name="M000006"></a>
-
-        <div class="method-heading">
-          <a href="UserAgent.src/M000006.html" target="Code" class="method-signature"
-            onclick="popupCode('UserAgent.src/M000006.html');return false;">
-          <span class="method-name">isChrome?</span><span class="method-args">(version = nil)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-        </div>
-      </div>
-
-      <div id="method-M000005" class="method-detail">
-        <a name="M000005"></a>
-
-        <div class="method-heading">
-          <a href="UserAgent.src/M000005.html" target="Code" class="method-signature"
-            onclick="popupCode('UserAgent.src/M000005.html');return false;">
-          <span class="method-name">isFirefox?</span><span class="method-args">(version = nil)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
+          <p>
+query user_agent_info
+</p>
+<pre>
+   request.user_agent_info['header']         ==&gt; Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1.4) Gecko/20091016 Firefox/3.5.4
+   request.user_agent_info['platform']       ==&gt; Macintosh
+   request.user_agent_info['name']           ==&gt; Firefox
+   request.user_agent_info['name_display']   ==&gt; Mozilla Firefox
+   request.user_agent_info['cpuos']          ==&gt; Intel Mac OS X 10.5
+   request.user_agent_info['language']       ==&gt; en-US
+   request.user_agent_info['version']        ==&gt; 3.5
+   request.user_agent_info['engine']         ==&gt; Gecko/20091016
+</pre>
         </div>
       </div>
 
@@ -191,42 +158,64 @@
         <div class="method-heading">
           <a href="UserAgent.src/M000004.html" target="Code" class="method-signature"
             onclick="popupCode('UserAgent.src/M000004.html');return false;">
+          <span class="method-name">isChrome?</span><span class="method-args">(version = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="UserAgent.src/M000003.html" target="Code" class="method-signature"
+            onclick="popupCode('UserAgent.src/M000003.html');return false;">
+          <span class="method-name">isFirefox?</span><span class="method-args">(version = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="UserAgent.src/M000002.html" target="Code" class="method-signature"
+            onclick="popupCode('UserAgent.src/M000002.html');return false;">
           <span class="method-name">isIE?</span><span class="method-args">(version = nil)</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+check if browser is Internet Explorer
+</p>
+<pre>
+   request.user_agent_info.isIE?                     ==&gt; true if browser is Internet Explorer &lt;br /&gt;
+   request.user_agent_info.isIE?('6.0')              ==&gt; true if browser is Internet Explorer version 6.0                    '=='
+   request.user_agent_info.isIE_or_worse?('6.0')     ==&gt; true if browser is Internet Explorer version worse or equal to 6.0  '&lt;='
+   request.user_agent_info.isIE_and_worse?('6.0')    ==&gt; true if browser is Internet Explorer version worse then 6.0         '&lt;'
+   request.user_agent_info.isIE_or_better?('6.0')    ==&gt; true if browser is Internet Explorer version better or equal to 6.0 '&gt;='
+   request.user_agent_info.isIE_and_better?('6.0')   ==&gt; true if browser is Internet Explorer version better then 6.0        '&gt;'
+</pre>
         </div>
       </div>
 
-      <div id="method-M000007" class="method-detail">
-        <a name="M000007"></a>
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
 
         <div class="method-heading">
-          <a href="UserAgent.src/M000007.html" target="Code" class="method-signature"
-            onclick="popupCode('UserAgent.src/M000007.html');return false;">
+          <a href="UserAgent.src/M000005.html" target="Code" class="method-signature"
+            onclick="popupCode('UserAgent.src/M000005.html');return false;">
           <span class="method-name">isOpera?</span><span class="method-args">(version = nil)</span>
           </a>
         </div>
       
         <div class="method-description">
-        </div>
-      </div>
-
-      <div id="method-M000008" class="method-detail">
-        <a name="M000008"></a>
-
-        <div class="method-heading">
-          <a href="UserAgent.src/M000008.html" target="Code" class="method-signature"
-            onclick="popupCode('UserAgent.src/M000008.html');return false;">
-          <span class="method-name">method_missing</span><span class="method-args">(method_id, *arguments, &amp;block)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-or_better or_worse
-</p>
         </div>
       </div>
 

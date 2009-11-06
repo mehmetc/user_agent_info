@@ -1,28 +1,54 @@
-# ############################################################################
 #
-# UserAgentInfo Library
-# simplifies user-agent detection
+# = UserAgentInfo
 #
-# Mehmet Celik
-# (c) 2009 
+# == simplify user-agent detection in Rails
 #
+# Author:: Mehmet Celik
 #
+# == Usage
 #
+# It extends ActionController::Request and parses the requests HTTP_USER_AGENT header so it can be queried.
+# The supported browsers are IE, Firefox, Chrome, Opera this translates into the methods isIE?, isFirefox?, isChrome, isOpera?
+# You can also supply a version like isIE?('6.0') and you can query if it is worse or/and better then a version isIE_or_worse?('6.0')
 #
-#
+# === Example
+# 
+#   class UpgradeBrowserController < ApplicationController 
+#     def index 
+#       @upgrade = request.user_agent_info.isIE_or_worse?('6.0') 
+#     end 
+#   end 
+
 
 module UserAgentInfo
   class UserAgent
     attr_reader :browser_info
 
-    def initialize(r)
+    def initialize(r) #:nodoc:
       parse_browser_info(r)
     end
 
+# query user_agent_info 
+# 
+#    request.user_agent_info['header']         ==> Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1.4) Gecko/20091016 Firefox/3.5.4 
+#    request.user_agent_info['platform']       ==> Macintosh 
+#    request.user_agent_info['name']           ==> Firefox 
+#    request.user_agent_info['name_display']   ==> Mozilla Firefox 
+#    request.user_agent_info['cpuos']          ==> Intel Mac OS X 10.5 
+#    request.user_agent_info['language']       ==> en-US 
+#    request.user_agent_info['version']        ==> 3.5 
+#    request.user_agent_info['engine']         ==> Gecko/20091016 
     def [](lookup)
       @browser_info[lookup]
     end
 
+# check if browser is Internet Explorer
+#    request.user_agent_info.isIE?                     ==> true if browser is Internet Explorer <br />
+#    request.user_agent_info.isIE?('6.0')              ==> true if browser is Internet Explorer version 6.0                    '==' 
+#    request.user_agent_info.isIE_or_worse?('6.0')     ==> true if browser is Internet Explorer version worse or equal to 6.0  '<=' 
+#    request.user_agent_info.isIE_and_worse?('6.0')    ==> true if browser is Internet Explorer version worse then 6.0         '<' 
+#    request.user_agent_info.isIE_or_better?('6.0')    ==> true if browser is Internet Explorer version better or equal to 6.0 '>=' 
+#    request.user_agent_info.isIE_and_better?('6.0')   ==> true if browser is Internet Explorer version better then 6.0        '>' 
     def isIE?(version = nil)
       browser_query('MSIE', version)
     end
@@ -39,8 +65,7 @@ module UserAgentInfo
       browser_query('Opera', version)
     end
 
-# or_better or_worse
-    def method_missing(method_id, *arguments, &block)
+    def method_missing(method_id, *arguments, &block) #:nodoc:
       actions = ['better', 'worse']
       operators = ['or', 'and']
       
@@ -157,9 +182,7 @@ module UserAgentInfo
   end
 end
 
-
-
-class ActionController::Request  
+class ActionController::Request #:nodoc: all 
   def user_agent_info
     UserAgentInfo::UserAgent.new(self)       
   end

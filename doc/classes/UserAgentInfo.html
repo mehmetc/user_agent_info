@@ -73,19 +73,30 @@
   <div id="contextContent">
 
     <div id="description">
-      <p>
-############################################################################
-</p>
+      <h1><a href="UserAgentInfo.html">UserAgentInfo</a></h1>
+<h2>simplify user-agent detection in Rails</h2>
+<table>
+<tr><td valign="top">Author:</td><td>Mehmet Celik
+
+</td></tr>
+</table>
+<h2>Usage</h2>
 <p>
-<a href="UserAgentInfo.html">UserAgentInfo</a> Library simplifies
-user-agent detection
+It extends ActionController::Request and parses the requests
+HTTP_USER_AGENT header so it can be queried. The supported browsers are IE,
+Firefox, Chrome, Opera this translates into the methods isIE?, isFirefox?,
+isChrome, isOpera? You can also supply a version like
+isIE?(&#8216;6.0&#8217;) and you can query if it is worse or/and better
+then a version isIE_or_worse?(&#8216;6.0&#8217;)
 </p>
-<p>
-Mehmet Celik (c) 2009
-</p>
-<p>
-############################################################################
-</p>
+<h3>Example</h3>
+<pre>
+  class UpgradeBrowserController &lt; ApplicationController
+    def index
+      @upgrade = request.user_agent_info.isIE_or_worse?('6.0')
+    end
+  end
+</pre>
 
     </div>
 
