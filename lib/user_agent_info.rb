@@ -182,7 +182,7 @@ module UserAgentInfo
   end
 end
 
-class ActionController::Request #:nodoc: all 
+class ActionDispatch::Request #:nodoc: all 
   def user_agent_info
     UserAgentInfo::UserAgent.new(self)       
   end
