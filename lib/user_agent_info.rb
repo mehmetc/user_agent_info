@@ -149,7 +149,7 @@ module UserAgentInfo
         platform = browser[0]
         cpuos    = browser[1]
         language = browser[3]
-        engine   = string_match[3].strip
+        engine   = string_match[3] ? string_match[3].strip : 'unknown'
       else
         platform = name = cpuos = language = engine = 'unknown'        
       end
