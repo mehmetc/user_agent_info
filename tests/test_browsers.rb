@@ -9,19 +9,19 @@ require 'user_agent_info'
 
 class Request
   attr_accessor :headers
-  
-  def initialize(header) 
+
+  def initialize(header)
     @headers = {'HTTP_USER_AGENT' => header}
   end
-    
+
   def user_agent_info
-    UserAgentInfo::UserAgent.new(self)       
+    UserAgentInfo::UserAgent.new(self)
   end
-  
+
   def headers
     @headers
   end
-  
+
 end
 
 FIREFOX_OSX_HEADER ='Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1.4) Gecko/20091016 Firefox/3.5.4'
@@ -42,19 +42,19 @@ class TestBrowsers < Test::Unit::TestCase
         @request = Request.new(IE_80_WIN_HEADER)
         @browser = "This is #{@request.user_agent_info['name_display']} #{@request.user_agent_info['version']}"
       end
-      
+
       should 'be Internet Explorer 8.0' do
-        assert(@request.user_agent_info.isIE?('8.0'), @browser) 
+        assert(@request.user_agent_info.isIE?('8.0'), @browser)
       end
 
       should 'be Internet Explorer 6.0 or better' do
-        assert(@request.user_agent_info.isIE_or_better?('6.0'), @browser) 
-      end            
+        assert(@request.user_agent_info.isIE_or_better?('6.0'), @browser)
+      end
     end
 
     context "Safari OSX" do
       setup do
-        @request = Request.new(SAFARI_OSX_HEADER) 
+        @request = Request.new(SAFARI_OSX_HEADER)
         @browser_error_message = "This is #{@request.user_agent_info['name_display']} #{@request.user_agent_info['version']}"
       end
 
@@ -78,7 +78,7 @@ class TestBrowsers < Test::Unit::TestCase
 
     context "Chrome OSX" do
       setup do
-        @request = Request.new(CHROME_OSX_HEADER) 
+        @request = Request.new(CHROME_OSX_HEADER)
         @browser_error_message = "This is #{@request.user_agent_info['name_display']} #{@request.user_agent_info['version']}"
       end
 
@@ -99,7 +99,7 @@ class TestBrowsers < Test::Unit::TestCase
         assert_equal('AppleWebKit/532.3',      browser_info['engine'],        'wrong engine')
       end
     end
-    
+
     context "Spinner robot" do
       setup do
         @request = Request.new(SPINNER_ROBOT)
