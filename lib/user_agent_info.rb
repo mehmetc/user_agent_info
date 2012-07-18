@@ -128,12 +128,15 @@ module UserAgentInfo
         name = name_version[0]
         language = ''        
       when header.match('Firefox') || header.match('Chrome') || header.match('Safari')
-        string_match = header.match('.*? \((.*?)?\)( .*)?')   
-        browser  = string_match[1].split(';').map {|e| e.strip}
-        platform = browser[0]
-        name     = browser[1]
-        cpuos    = browser[2]
-        language = browser[3]
+        string_match = header.match(/\((.*?)\)(?=\ ) (.*)/)
+
+        semicolon_separated_browser_info = string_match[1]
+        browser_info_array = semicolon_separated_browser_info.split(';')
+        browser_info_array = browser_info_array.map{|info_string| info_string.strip}
+
+        platform = browser_info_array[0]
+        cpuos    = browser_info_array[2]
+        language = browser_info_array[3]
                      
         name_version_engine = string_match[2].gsub(/\(.*?\)/,'').split(' ')
         name_version = name_version_engine[1].split('/')
