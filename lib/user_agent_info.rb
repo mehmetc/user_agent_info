@@ -128,14 +128,6 @@ module UserAgentInfo
         name = name_version[0]
         language = ''        
       when header.match('Firefox') || header.match('Chrome') || header.match('Safari')
-        # string_match = header.match('.*? \((.*?)?\)( .*)?') # original. Nested parens fail
-        # string_match = header.match(/ \((.*)?\)( .*)?/) # all but Chrome works
-        #string_match = header.match(/ \(([^()]*([^()]*))?([^)]*)?\)( .*)?/)
-                   #actual '('          |||    ||      ||
-                     #start group A      ||    ||      ||
-                    #any num non parens   |====||      ||
-                          #optional paren group |======||
-                     #end group A                       |
         string_match = header.match(/\((.*?)\)(?=\ ) (.*)/)
 
         semicolon_separated_browser_info = string_match[1]
@@ -143,7 +135,6 @@ module UserAgentInfo
         browser_info_array = browser_info_array.map{|info_string| info_string.strip}
 
         platform = browser_info_array[0]
-        # name     = browser_info_array[1] # overwritten below
         cpuos    = browser_info_array[2]
         language = browser_info_array[3]
                      
